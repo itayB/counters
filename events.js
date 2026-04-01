@@ -22,6 +22,16 @@ const EVENTS = {
       decoration: "stars"
     },
     {
+      id: "high-school",
+      title: "Jonathan's High School",
+      subtitle: "A new chapter begins",
+      date: "2028-09-01T00:00:00",
+      dateDisplay: "September 1, 2028",
+      theme: "jonathan",
+      particleColor: "rgba(60, 130, 246, ALPHA)",
+      decoration: "balloons"
+    },
+    {
       id: "retirement",
       title: "Retirement",
       subtitle: "Freedom awaits at the horizon",
@@ -35,7 +45,7 @@ const EVENTS = {
   recurring: [
     {
       id: "anniversary",
-      title: "Our Anniversary",
+      title: "Karin & Itay Anniversary",
       subtitle: "Celebrating us",
       month: 7,
       day: 2,
@@ -46,7 +56,7 @@ const EVENTS = {
     },
     {
       id: "birthday",
-      title: "My Birthday",
+      title: "Itay's Birthday",
       subtitle: "Time to celebrate",
       month: 8,
       day: 16,
@@ -68,7 +78,7 @@ const EVENTS = {
     },
     {
       id: "wife",
-      title: "Wife's Birthday",
+      title: "Karin's Birthday",
       subtitle: "For someone extraordinary",
       month: 1,
       day: 19,
