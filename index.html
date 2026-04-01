@@ -677,6 +677,39 @@
   .delay-3 { transition-delay: 0.4s; }
   .delay-4 { transition-delay: 0.6s; }
 
+  /* ─── Section divider ─── */
+  .section-divider {
+    min-height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: linear-gradient(180deg, #080810 0%, #0c0c18 50%, #080810 100%);
+  }
+
+  .divider-content {
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .divider-content h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.15em;
+  }
+
+  .divider-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    margin: 1rem auto;
+  }
+
   /* ─── Mobile adjustments ─── */
   @media (max-width: 480px) {
     .event-section { padding: 1.5rem 1rem; }
@@ -693,59 +726,21 @@
 
 <!-- Navigation dots -->
 <nav class="nav-dots" id="nav-dots">
-  <div class="nav-dot active" data-target="anniversary"><span class="dot-tooltip">Anniversary</span></div>
-  <div class="nav-dot" data-target="trip"><span class="dot-tooltip">USA Trip</span></div>
+  <div class="nav-dot active" data-target="trip"><span class="dot-tooltip">USA Trip</span></div>
+  <div class="nav-dot" data-target="bar"><span class="dot-tooltip">Bar Mitzvah</span></div>
+  <div class="nav-dot" data-target="retirement"><span class="dot-tooltip">Retirement</span></div>
+  <div class="nav-dot" style="width:16px;height:1px;border-radius:0;background:rgba(255,255,255,0.15);border:none;cursor:default;pointer-events:none" data-target=""></div>
+  <div class="nav-dot" data-target="anniversary"><span class="dot-tooltip">Anniversary</span></div>
   <div class="nav-dot" data-target="birthday"><span class="dot-tooltip">My Birthday</span></div>
   <div class="nav-dot" data-target="jonathan"><span class="dot-tooltip">Jonathan</span></div>
-  <div class="nav-dot" data-target="bar"><span class="dot-tooltip">Bar Mitzvah</span></div>
   <div class="nav-dot" data-target="wife"><span class="dot-tooltip">Wife's Birthday</span></div>
-  <div class="nav-dot" data-target="retirement"><span class="dot-tooltip">Retirement</span></div>
 </nav>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- OUR ANNIVERSARY                        -->
+<!-- ONE-TIME EVENTS                        -->
 <!-- ═══════════════════════════════════════ -->
-<section class="event-section anniversary-section" id="anniversary">
-  <canvas class="particles-canvas" id="anniversary-particles"></canvas>
-  <div class="heart-float" style="left: 65%;">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
 
-  <p class="event-label fade-up">Counting down to</p>
-  <h1 class="event-title fade-up delay-1">Our Anniversary</h1>
-  <p class="event-subtitle fade-up delay-2">Celebrating us</p>
-  <p class="event-date fade-up delay-2">July 2, 2026</p>
-
-  <div class="countdown fade-up delay-3" id="anniversary-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('trip').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- USA FAMILY TRIP                        -->
-<!-- ═══════════════════════════════════════ -->
+<!-- USA FAMILY TRIP -->
 <section class="event-section trip-section" id="trip">
   <canvas class="particles-canvas" id="trip-particles"></canvas>
 
@@ -756,7 +751,7 @@
     <div class="airplane-icon">&#9992;&#65039;</div>
   </div>
 
-  <p class="event-label fade-up">Counting down to</p>
+  <p class="event-label fade-up">One-time event</p>
   <h1 class="event-title fade-up delay-1">USA Family Trip</h1>
   <p class="event-subtitle fade-up delay-2">An adventure awaits</p>
   <p class="event-date fade-up delay-2">July 9, 2026 &middot; 23:00</p>
@@ -780,19 +775,151 @@
     </div>
   </div>
 
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('bar').scrollIntoView({behavior:'smooth'})">
+    <span>Next event</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</section>
+
+<!-- BAR MITZVAH -->
+<section class="event-section bar-section" id="bar">
+  <canvas class="particles-canvas" id="bar-particles"></canvas>
+
+  <div class="star-decoration top-right">
+    <svg viewBox="0 0 100 100">
+      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+    </svg>
+  </div>
+  <div class="star-decoration bottom-left">
+    <svg viewBox="0 0 100 100">
+      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+    </svg>
+  </div>
+
+  <p class="event-label fade-up">One-time event</p>
+  <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
+  <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1.1rem, 2.5vw, 1.5rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
+  <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
+
+  <div class="countdown fade-up delay-3" id="bar-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('retirement').scrollIntoView({behavior:'smooth'})">
+    <span>Next event</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</section>
+
+<!-- RETIREMENT -->
+<section class="event-section retirement-section" id="retirement">
+  <canvas class="particles-canvas" id="retirement-particles"></canvas>
+  <div class="sun-glow"></div>
+
+  <p class="event-label fade-up">One-time event</p>
+  <h1 class="event-title fade-up delay-1">Retirement</h1>
+  <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
+  <p class="event-date fade-up delay-2">August 16, 2049</p>
+
+  <div class="countdown fade-up delay-3" id="retirement-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('anniversary').scrollIntoView({behavior:'smooth'})">
+    <span>Recurring events</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DIVIDER                                -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-divider">
+  <div class="divider-content">
+    <div class="divider-line"></div>
+    <h2>Every Year, Every Time</h2>
+    <div class="divider-line"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- RECURRING EVENTS                       -->
+<!-- ═══════════════════════════════════════ -->
+
+<!-- OUR ANNIVERSARY -->
+<section class="event-section anniversary-section" id="anniversary">
+  <canvas class="particles-canvas" id="anniversary-particles"></canvas>
+  <div class="heart-float" style="left: 65%;">&#10084;</div>
+  <div class="heart-float">&#10084;</div>
+  <div class="heart-float">&#10084;</div>
+  <div class="heart-float">&#10084;</div>
+  <div class="heart-float">&#10084;</div>
+
+  <p class="event-label fade-up">Every year</p>
+  <h1 class="event-title fade-up delay-1">Our Anniversary</h1>
+  <p class="event-subtitle fade-up delay-2">Celebrating us</p>
+  <p class="event-date fade-up delay-2">July 2, 2026</p>
+
+  <div class="countdown fade-up delay-3" id="anniversary-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="anniversary-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="anniversary-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="anniversary-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="anniversary-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
   <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('birthday').scrollIntoView({behavior:'smooth'})">
     <span>Next event</span>
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
 </section>
 
-<!-- ═══════════════════════════════════════ -->
-<!-- MY BIRTHDAY                            -->
-<!-- ═══════════════════════════════════════ -->
+<!-- MY BIRTHDAY -->
 <section class="event-section birthday-section" id="birthday">
   <canvas class="particles-canvas" id="birthday-particles"></canvas>
 
-  <p class="event-label fade-up">Counting down to</p>
+  <p class="event-label fade-up">Every year</p>
   <h1 class="event-title fade-up delay-1">My Birthday</h1>
   <p class="event-subtitle fade-up delay-2">Time to celebrate</p>
   <p class="event-date fade-up delay-2">August 16, 2026</p>
@@ -822,9 +949,7 @@
   </button>
 </section>
 
-<!-- ═══════════════════════════════════════ -->
-<!-- JONATHAN'S BIRTHDAY                    -->
-<!-- ═══════════════════════════════════════ -->
+<!-- JONATHAN'S BIRTHDAY -->
 <section class="event-section jonathan-section" id="jonathan">
   <canvas class="particles-canvas" id="jonathan-particles"></canvas>
   <div class="balloon-float" style="left: 70%;">&#127880;</div>
@@ -833,7 +958,7 @@
   <div class="balloon-float">&#127882;</div>
   <div class="balloon-float">&#127880;</div>
 
-  <p class="event-label fade-up">Counting down to</p>
+  <p class="event-label fade-up">Every year</p>
   <h1 class="event-title fade-up delay-1">Jonathan's Birthday</h1>
   <p class="event-subtitle fade-up delay-2">Happy birthday, champ!</p>
   <p class="event-date fade-up delay-2">September 9, 2026</p>
@@ -857,62 +982,13 @@
     </div>
   </div>
 
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('bar').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- BAR MITZVAH                            -->
-<!-- ═══════════════════════════════════════ -->
-<section class="event-section bar-section" id="bar">
-  <canvas class="particles-canvas" id="bar-particles"></canvas>
-
-  <div class="star-decoration top-right">
-    <svg viewBox="0 0 100 100">
-      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-    </svg>
-  </div>
-  <div class="star-decoration bottom-left">
-    <svg viewBox="0 0 100 100">
-      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-    </svg>
-  </div>
-
-  <p class="event-label fade-up">Counting down to</p>
-  <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
-  <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1.1rem, 2.5vw, 1.5rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
-  <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
-
-  <div class="countdown fade-up delay-3" id="bar-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
   <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('wife').scrollIntoView({behavior:'smooth'})">
     <span>Next event</span>
     <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
 </section>
 
-<!-- ═══════════════════════════════════════ -->
-<!-- WIFE'S BIRTHDAY                        -->
-<!-- ═══════════════════════════════════════ -->
+<!-- WIFE'S BIRTHDAY -->
 <section class="event-section wife-section" id="wife">
   <canvas class="particles-canvas" id="wife-particles"></canvas>
   <div class="snowflake" style="left: 40%;">&#10052;</div>
@@ -921,7 +997,7 @@
   <div class="snowflake">&#10052;</div>
   <div class="snowflake">&#10052;</div>
 
-  <p class="event-label fade-up">Counting down to</p>
+  <p class="event-label fade-up">Every year</p>
   <h1 class="event-title fade-up delay-1">Wife's Birthday</h1>
   <p class="event-subtitle fade-up delay-2">For someone extraordinary</p>
   <p class="event-date fade-up delay-2">January 19, 2027</p>
@@ -945,44 +1021,7 @@
     </div>
   </div>
 
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('retirement').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- RETIREMENT                             -->
-<!-- ═══════════════════════════════════════ -->
-<section class="event-section retirement-section" id="retirement">
-  <canvas class="particles-canvas" id="retirement-particles"></canvas>
-  <div class="sun-glow"></div>
-
-  <p class="event-label fade-up">Counting down to</p>
-  <h1 class="event-title fade-up delay-1">Retirement</h1>
-  <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
-  <p class="event-date fade-up delay-2">August 16, 2049</p>
-
-  <div class="countdown fade-up delay-3" id="retirement-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('anniversary').scrollIntoView({behavior:'smooth'})">
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('trip').scrollIntoView({behavior:'smooth'})">
     <svg viewBox="0 0 24 24" style="transform: rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
     <span>Back to top</span>
   </button>
