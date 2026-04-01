@@ -632,8 +632,10 @@
 
   /* ─── Scroll hint ─── */
   .scroll-hint {
-    margin-top: auto;
-    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    position: absolute;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -662,8 +664,8 @@
   }
 
   @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
   }
 
   /* ─── Particles canvas ─── */
@@ -774,7 +776,12 @@
     }
 
     .event-section {
-      padding-bottom: 2rem;
+      padding-bottom: 4.5rem;
+    }
+
+    .scroll-hint {
+      bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+      font-size: 0.55rem;
     }
   }
 </style>
