@@ -564,6 +564,17 @@
     margin-bottom: 2.5rem;
   }
 
+  .nudge-metric {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+    opacity: 0.35;
+    margin-top: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.02em;
+    transition: opacity 0.5s ease;
+  }
+
   /* ─── Countdown grid ─── */
   .countdown {
     display: grid;
@@ -856,6 +867,7 @@
           <span class="countdown-label">Seconds</span>
         </div>
       </div>
+      <p class="nudge-metric fade-up delay-4" id="${ev.id}-nudge"></p>
       ${scrollBtn}
     </section>`;
   }
@@ -865,6 +877,28 @@
     let target = new Date(now.getFullYear(), month - 1, day);
     if (target <= now) target = new Date(now.getFullYear() + 1, month - 1, day);
     return target;
+  }
+
+  // ─── Nudge metric — psychology-driven secondary unit ───
+  function computeNudge(totalDays) {
+    if (totalDays <= 0) return '';
+    const workdays = totalDays - (Math.floor(totalDays / 7) * 2);
+    const weeks = Math.floor(totalDays / 7);
+    const months = Math.round(totalDays / 30.44);
+    const years = (totalDays / 365.25).toFixed(1);
+    const weekends = weeks;
+
+    if (totalDays > 5 * 365) {
+      return `That\u2019s ${years} years \u00b7 ${workdays.toLocaleString()} workdays`;
+    } else if (totalDays > 365) {
+      return `${months} months \u00b7 ${workdays.toLocaleString()} workdays`;
+    } else if (totalDays > 84) {
+      return `${weeks} weeks \u00b7 ${weekends} weekends to prepare`;
+    } else if (totalDays > 7) {
+      return `Only ${workdays} workdays \u00b7 ${weekends} weekends left`;
+    } else {
+      return `Only ${totalDays} sleep${totalDays !== 1 ? 's' : ''} away`;
+    }
   }
 
   // ─── Render events from EVENTS global ───
@@ -894,6 +928,7 @@
         hours: document.getElementById(ev.prefix + '-hours'),
         mins: document.getElementById(ev.prefix + '-mins'),
         secs: document.getElementById(ev.prefix + '-secs'),
+        nudge: document.getElementById(ev.prefix + '-nudge'),
       }
     }));
 
@@ -915,6 +950,12 @@
         const mins = Math.floor((diff / (1000 * 60)) % 60);
         const secs = Math.floor((diff / 1000) % 60);
         const values = { days, hours: pad(hours), mins: pad(mins), secs: pad(secs) };
+
+        // Update nudge metric
+        const nudgeText = computeNudge(days);
+        if (ev.els.nudge && ev.els.nudge.textContent !== nudgeText) {
+          ev.els.nudge.textContent = nudgeText;
+        }
 
         Object.keys(values).forEach(key => {
           const el = ev.els[key];
