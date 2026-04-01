@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown to Our Special Moments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&family=Noto+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --trip-bg: #0b1d3a;
+    --trip-accent: #f4a83c;
+    --trip-glow: #ff6b35;
+    --trip-text: #e8dcc8;
+
+    --bar-bg: #1a0a2e;
+    --bar-accent: #c9a84c;
+    --bar-glow: #7b5ea7;
+    --bar-text: #f0e6d3;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-hebrew: 'Noto Sans Hebrew', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+
+  body {
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    background: #080810;
+  }
+
+  /* ─── Section base ─── */
+  .event-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    padding: 2rem 1.5rem;
+  }
+
+  /* ─── USA Family Trip ─── */
+  .trip-section {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(244, 168, 60, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+      linear-gradient(175deg, #0b1d3a 0%, #0f2847 40%, #132e52 100%);
+    color: var(--trip-text);
+  }
+
+  .trip-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.35) 0%, transparent 100%);
+    opacity: 0.6;
+    animation: twinkle 6s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+  }
+
+  /* ─── Bar Mitzvah ─── */
+  .bar-section {
+    background:
+      radial-gradient(ellipse 70% 50% at 75% 75%, rgba(201, 168, 76, 0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 20% 30%, rgba(123, 94, 167, 0.12) 0%, transparent 50%),
+      linear-gradient(175deg, #1a0a2e 0%, #1e1040 40%, #251555 100%);
+    color: var(--bar-text);
+  }
+
+  .bar-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0deg 30deg,
+        rgba(201, 168, 76, 0.015) 30deg 60deg
+      );
+    pointer-events: none;
+  }
+
+  /* ─── Star of David decoration ─── */
+  .star-decoration {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .star-decoration.top-right {
+    top: 5%;
+    right: 5%;
+    animation: float-slow 12s ease-in-out infinite;
+  }
+
+  .star-decoration.bottom-left {
+    bottom: 8%;
+    left: 3%;
+    width: 200px;
+    height: 200px;
+    animation: float-slow 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(8deg); }
+  }
+
+  .star-decoration svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--bar-accent);
+  }
+
+  /* ─── Airplane decoration ─── */
+  .airplane-path {
+    position: absolute;
+    top: 12%;
+    left: -5%;
+    width: 110%;
+    height: 30%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .airplane-icon {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 8px rgba(244, 168, 60, 0.4));
+    offset-path: path('M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50');
+    animation: fly 20s linear infinite;
+    position: absolute;
+  }
+
+  @keyframes fly {
+    0% { offset-distance: 0%; opacity: 0; }
+    5% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  .dashed-trail {
+    fill: none;
+    stroke: rgba(244, 168, 60, 0.15);
+    stroke-width: 1.5;
+    stroke-dasharray: 8 6;
+    animation: dash 30s linear infinite;
+  }
+
+  @keyframes dash {
+    to { stroke-dashoffset: -300; }
+  }
+
+  /* ─── Content ─── */
+  .event-label {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .event-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  .trip-section .event-title {
+    background: linear-gradient(135deg, #f4a83c 0%, #ff6b35 50%, #f4a83c 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  .bar-section .event-title {
+    background: linear-gradient(135deg, #c9a84c 0%, #e8d48b 40%, #c9a84c 80%, #a07830 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .event-subtitle {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    opacity: 0.5;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+  }
+
+  .event-date {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    opacity: 0.45;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── Countdown grid ─── */
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.75rem, 2vw, 2rem);
+    width: 100%;
+    max-width: 700px;
+  }
+
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .countdown-number {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 1;
+    position: relative;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .trip-section .countdown-number {
+    color: var(--trip-accent);
+    text-shadow:
+      0 0 30px rgba(244, 168, 60, 0.3),
+      0 0 60px rgba(255, 107, 53, 0.1);
+  }
+
+  .bar-section .countdown-number {
+    color: var(--bar-accent);
+    text-shadow:
+      0 0 30px rgba(201, 168, 76, 0.25),
+      0 0 60px rgba(123, 94, 167, 0.1);
+  }
+
+  .countdown-label {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* ─── Divider between units ─── */
+  .countdown-unit:not(:last-child) {
+    position: relative;
+  }
+
+  .countdown-unit:not(:last-child)::after {
+    content: ':';
+    position: absolute;
+    right: calc(-0.375rem - 1vw);
+    top: 0;
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 4rem);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  /* ─── Scroll hint ─── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.3;
+    animation: bob 2.5s ease-in-out infinite;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: var(--font-body);
+  }
+
+  .scroll-hint span {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .scroll-hint svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── Confetti / particles canvas ─── */
+  .particles-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* ─── Mobile adjustments ─── */
+  @media (max-width: 480px) {
+    .event-section {
+      padding: 1.5rem 1rem;
+    }
+
+    .countdown {
+      gap: 0.5rem;
+    }
+
+    .countdown-unit:not(:last-child)::after {
+      display: none;
+    }
+
+    .airplane-path {
+      display: none;
+    }
+  }
+
+  /* ─── Entrance animations ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.25s; }
+  .delay-3 { transition-delay: 0.4s; }
+  .delay-4 { transition-delay: 0.6s; }
+
+  /* ─── Number flip transition ─── */
+  .countdown-number {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .countdown-number.flip {
+    transform: scaleY(0.85);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- USA FAMILY TRIP                        -->
+<!-- ═══════════════════════════════════════ -->
+<section class="event-section trip-section" id="trip">
+  <canvas class="particles-canvas" id="trip-particles"></canvas>
+
+  <div class="airplane-path">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path class="dashed-trail" d="M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50"/>
+    </svg>
+    <div class="airplane-icon">&#9992;&#65039;</div>
+  </div>
+
+  <p class="event-label fade-up">Counting down to</p>
+  <h1 class="event-title fade-up delay-1">USA Family Trip</h1>
+  <p class="event-subtitle fade-up delay-2">An adventure awaits</p>
+  <p class="event-date fade-up delay-2">July 9, 2026 &middot; 23:00</p>
+
+  <div class="countdown fade-up delay-3" id="trip-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="trip-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="trip-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="trip-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="trip-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('bar').scrollIntoView({behavior:'smooth'})">
+    <span>Next event</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- BAR MITZVAH                            -->
+<!-- ═══════════════════════════════════════ -->
+<section class="event-section bar-section" id="bar">
+  <canvas class="particles-canvas" id="bar-particles"></canvas>
+
+  <div class="star-decoration top-right">
+    <svg viewBox="0 0 100 100">
+      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+    </svg>
+  </div>
+  <div class="star-decoration bottom-left">
+    <svg viewBox="0 0 100 100">
+      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+    </svg>
+  </div>
+
+  <p class="event-label fade-up">Counting down to</p>
+  <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
+  <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1.1rem, 2.5vw, 1.5rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
+  <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
+
+  <div class="countdown fade-up delay-3" id="bar-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="bar-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('trip').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" style="transform: rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
+    <span>Back to top</span>
+  </button>
+</section>
+
+<script>
+  // ─── Countdown logic ───
+  const events = [
+    {
+      target: new Date('2026-07-09T23:00:00'),
+      els: {
+        days: document.getElementById('trip-days'),
+        hours: document.getElementById('trip-hours'),
+        mins: document.getElementById('trip-mins'),
+        secs: document.getElementById('trip-secs'),
+      }
+    },
+    {
+      target: new Date('2026-09-16T08:00:00'),
+      els: {
+        days: document.getElementById('bar-days'),
+        hours: document.getElementById('bar-hours'),
+        mins: document.getElementById('bar-mins'),
+        secs: document.getElementById('bar-secs'),
+      }
+    }
+  ];
+
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function updateCountdowns() {
+    const now = new Date();
+    events.forEach(ev => {
+      const diff = ev.target - now;
+      if (diff <= 0) {
+        ev.els.days.textContent = '00';
+        ev.els.hours.textContent = '00';
+        ev.els.mins.textContent = '00';
+        ev.els.secs.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      const values = { days, hours: pad(hours), mins: pad(mins), secs: pad(secs) };
+
+      Object.keys(values).forEach(key => {
+        const el = ev.els[key];
+        const newVal = String(values[key]);
+        if (el.textContent !== newVal) {
+          el.classList.add('flip');
+          setTimeout(() => {
+            el.textContent = newVal;
+            el.classList.remove('flip');
+          }, 150);
+        }
+      });
+    });
+  }
+
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+
+  // ─── Intersection Observer for fade-in ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ─── Floating particles ───
+  function initParticles(canvasId, color, count) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.3 + 0.05,
+        alphaDir: Math.random() > 0.5 ? 0.002 : -0.002,
+      };
+    }
+
+    function init() {
+      resize();
+      particles = Array.from({ length: count }, createParticle);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+        p.alpha += p.alphaDir;
+
+        if (p.alpha <= 0.03 || p.alpha >= 0.35) p.alphaDir *= -1;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = color.replace('ALPHA', p.alpha);
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    init();
+    draw();
+  }
+
+  initParticles('trip-particles', 'rgba(244, 168, 60, ALPHA)', 40);
+  initParticles('bar-particles', 'rgba(201, 168, 76, ALPHA)', 35);
+</script>
+
+</body>
+</html>
