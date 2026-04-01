@@ -20,15 +20,75 @@
     --font-hebrew: 'Noto Sans Hebrew', sans-serif;
   }
 
-  html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+  html, body {
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
     font-family: var(--font-body);
-    overflow-x: hidden;
     background: #080810;
+    color: #e0d8cc;
+  }
+
+  /* ═══════════════════════════════════════ */
+  /* LAYOUT — split screen                  */
+  /* ═══════════════════════════════════════ */
+  .app {
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .panel {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    position: relative;
+  }
+
+  /* Thin divider between panels */
+  .panel-divider {
+    width: 1px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(255,255,255,0.06) 20%,
+      rgba(255,255,255,0.1) 50%,
+      rgba(255,255,255,0.06) 80%,
+      transparent 100%
+    );
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  /* Panel headers — sticky category label */
+  .panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(180deg, rgba(8,8,16,0.95) 0%, rgba(8,8,16,0.7) 70%, transparent 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .panel-header-icon {
+    font-size: 0.75rem;
+    opacity: 0.4;
+  }
+
+  .panel-header-label {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.4;
   }
 
   /* ─── Section base ─── */
@@ -45,59 +105,211 @@
     padding: 2rem 1.5rem;
   }
 
-  /* ─── Navigation dots ─── */
-  .nav-dots {
-    position: fixed;
-    right: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    z-index: 100;
+  /* ═══════════════════════════════════════ */
+  /* USA FAMILY TRIP — navy / amber         */
+  /* ═══════════════════════════════════════ */
+  .trip-section {
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(244, 168, 60, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+      linear-gradient(175deg, #0b1d3a 0%, #0f2847 40%, #132e52 100%);
+    color: #e8dcc8;
   }
 
-  .nav-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: 1.5px solid rgba(255,255,255,0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .nav-dot:hover {
-    background: rgba(255,255,255,0.5);
-    transform: scale(1.3);
-  }
-
-  .nav-dot.active {
-    background: rgba(255,255,255,0.8);
-    transform: scale(1.3);
-  }
-
-  .nav-dot .dot-tooltip {
+  .trip-section::before {
+    content: '';
     position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.45) 0%, transparent 100%);
+    opacity: 0.6;
+    animation: twinkle 6s ease-in-out infinite alternate;
     pointer-events: none;
-    transition: opacity 0.2s;
-    font-family: var(--font-body);
   }
 
-  .nav-dot:hover .dot-tooltip {
-    opacity: 1;
+  @keyframes twinkle {
+    0% { opacity: 0.4; }
+    100% { opacity: 0.8; }
+  }
+
+  .trip-section .event-title {
+    background: linear-gradient(135deg, #f4a83c 0%, #ff6b35 50%, #f4a83c 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  .trip-section .countdown-number {
+    color: #f4a83c;
+    text-shadow: 0 0 30px rgba(244, 168, 60, 0.3), 0 0 60px rgba(255, 107, 53, 0.1);
+  }
+
+  /* Airplane decoration */
+  .airplane-path {
+    position: absolute;
+    top: 12%;
+    left: -5%;
+    width: 110%;
+    height: 30%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  .airplane-icon {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px rgba(244, 168, 60, 0.4));
+    offset-path: path('M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50');
+    animation: fly 20s linear infinite;
+    position: absolute;
+  }
+
+  @keyframes fly {
+    0% { offset-distance: 0%; opacity: 0; }
+    5% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+
+  .dashed-trail {
+    fill: none;
+    stroke: rgba(244, 168, 60, 0.15);
+    stroke-width: 1.5;
+    stroke-dasharray: 8 6;
+    animation: dash 30s linear infinite;
+  }
+
+  @keyframes dash {
+    to { stroke-dashoffset: -300; }
+  }
+
+  /* ═══════════════════════════════════════ */
+  /* BAR MITZVAH — purple / gold            */
+  /* ═══════════════════════════════════════ */
+  .bar-section {
+    background:
+      radial-gradient(ellipse 70% 50% at 75% 75%, rgba(201, 168, 76, 0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 20% 30%, rgba(123, 94, 167, 0.12) 0%, transparent 50%),
+      linear-gradient(175deg, #1a0a2e 0%, #1e1040 40%, #251555 100%);
+    color: #f0e6d3;
+  }
+
+  .bar-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0deg 30deg,
+        rgba(201, 168, 76, 0.015) 30deg 60deg
+      );
+    pointer-events: none;
+  }
+
+  .bar-section .event-title {
+    background: linear-gradient(135deg, #c9a84c 0%, #e8d48b 40%, #c9a84c 80%, #a07830 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s ease-in-out infinite;
+  }
+
+  .bar-section .countdown-number {
+    color: #c9a84c;
+    text-shadow: 0 0 30px rgba(201, 168, 76, 0.25), 0 0 60px rgba(123, 94, 167, 0.1);
+  }
+
+  .star-decoration {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .star-decoration.top-right {
+    top: 5%;
+    right: 5%;
+    animation: float-slow 12s ease-in-out infinite;
+  }
+
+  .star-decoration.bottom-left {
+    bottom: 8%;
+    left: 3%;
+    width: 180px;
+    height: 180px;
+    animation: float-slow 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(8deg); }
+  }
+
+  .star-decoration svg {
+    width: 100%;
+    height: 100%;
+    fill: #c9a84c;
+  }
+
+  /* ═══════════════════════════════════════ */
+  /* RETIREMENT — warm sunset / golden hour */
+  /* ═══════════════════════════════════════ */
+  .retirement-section {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 80%, rgba(255, 140, 50, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(255, 90, 50, 0.08) 0%, transparent 50%),
+      linear-gradient(175deg, #1a1005 0%, #2a1a08 30%, #3d2510 60%, #1a1005 100%);
+    color: #f0e0c8;
+  }
+
+  .retirement-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%),
+      radial-gradient(circle 200px at 80% 30%, rgba(255, 100, 50, 0.04) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .retirement-section .event-title {
+    background: linear-gradient(135deg, #e8a040 0%, #ffcc70 30%, #ff8c40 60%, #e8a040 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s ease-in-out infinite;
+  }
+
+  .retirement-section .countdown-number {
+    color: #e8a040;
+    text-shadow: 0 0 30px rgba(232, 160, 64, 0.3), 0 0 60px rgba(255, 140, 50, 0.1);
+  }
+
+  .sun-glow {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 150px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    animation: sun-pulse 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes sun-pulse {
+    0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
   }
 
   /* ═══════════════════════════════════════ */
@@ -135,7 +347,6 @@
     text-shadow: 0 0 30px rgba(232, 93, 117, 0.3), 0 0 60px rgba(190, 50, 70, 0.1);
   }
 
-  /* Heart decorations */
   .heart-float {
     position: absolute;
     font-size: 1.5rem;
@@ -144,102 +355,16 @@
     animation: heart-rise 8s ease-in infinite;
   }
 
-  .heart-float:nth-child(2) { left: 15%; animation-delay: 1.5s; font-size: 1.2rem; }
-  .heart-float:nth-child(3) { left: 80%; animation-delay: 3s; font-size: 1rem; }
-  .heart-float:nth-child(4) { left: 50%; animation-delay: 5s; font-size: 1.8rem; }
-  .heart-float:nth-child(5) { left: 35%; animation-delay: 6.5s; font-size: 1.1rem; }
+  .heart-float:nth-child(3) { left: 15%; animation-delay: 1.5s; font-size: 1.2rem; }
+  .heart-float:nth-child(4) { left: 80%; animation-delay: 3s; font-size: 1rem; }
+  .heart-float:nth-child(5) { left: 50%; animation-delay: 5s; font-size: 1.8rem; }
+  .heart-float:nth-child(6) { left: 35%; animation-delay: 6.5s; font-size: 1.1rem; }
 
   @keyframes heart-rise {
     0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.15; }
     80% { opacity: 0.1; }
     100% { transform: translateY(-10vh) rotate(25deg); opacity: 0; }
-  }
-
-  /* ═══════════════════════════════════════ */
-  /* USA FAMILY TRIP — navy / amber         */
-  /* ═══════════════════════════════════════ */
-  .trip-section {
-    background:
-      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(244, 168, 60, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
-      linear-gradient(175deg, #0b1d3a 0%, #0f2847 40%, #132e52 100%);
-    color: #e8dcc8;
-  }
-
-  .trip-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 50% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.35) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 15% 85%, rgba(255,255,255,0.45) 0%, transparent 100%),
-      radial-gradient(1px 1px at 60% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.35) 0%, transparent 100%);
-    opacity: 0.6;
-    animation: twinkle 6s ease-in-out infinite alternate;
-    pointer-events: none;
-  }
-
-  @keyframes twinkle {
-    0% { opacity: 0.4; }
-    100% { opacity: 0.8; }
-  }
-
-  .trip-section .event-title {
-    background: linear-gradient(135deg, #f4a83c 0%, #ff6b35 50%, #f4a83c 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 4s ease-in-out infinite;
-  }
-
-  .trip-section .countdown-number {
-    color: #f4a83c;
-    text-shadow: 0 0 30px rgba(244, 168, 60, 0.3), 0 0 60px rgba(255, 107, 53, 0.1);
-  }
-
-  /* Airplane decoration */
-  .airplane-path {
-    position: absolute;
-    top: 12%;
-    left: -5%;
-    width: 110%;
-    height: 30%;
-    pointer-events: none;
-    overflow: visible;
-  }
-
-  .airplane-icon {
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 8px rgba(244, 168, 60, 0.4));
-    offset-path: path('M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50');
-    animation: fly 20s linear infinite;
-    position: absolute;
-  }
-
-  @keyframes fly {
-    0% { offset-distance: 0%; opacity: 0; }
-    5% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { offset-distance: 100%; opacity: 0; }
-  }
-
-  .dashed-trail {
-    fill: none;
-    stroke: rgba(244, 168, 60, 0.15);
-    stroke-width: 1.5;
-    stroke-dasharray: 8 6;
-    animation: dash 30s linear infinite;
-  }
-
-  @keyframes dash {
-    to { stroke-dashoffset: -300; }
   }
 
   /* ═══════════════════════════════════════ */
@@ -312,7 +437,6 @@
     text-shadow: 0 0 30px rgba(60, 130, 246, 0.3), 0 0 60px rgba(100, 180, 255, 0.1);
   }
 
-  /* Balloon decorations */
   .balloon-float {
     position: absolute;
     font-size: 2rem;
@@ -321,88 +445,16 @@
     animation: balloon-rise 10s ease-in infinite;
   }
 
-  .balloon-float:nth-child(2) { left: 10%; animation-delay: 2s; font-size: 1.6rem; }
-  .balloon-float:nth-child(3) { left: 85%; animation-delay: 4s; font-size: 1.4rem; }
-  .balloon-float:nth-child(4) { left: 55%; animation-delay: 6s; font-size: 2.2rem; }
-  .balloon-float:nth-child(5) { left: 30%; animation-delay: 8s; font-size: 1.3rem; }
+  .balloon-float:nth-child(3) { left: 10%; animation-delay: 2s; font-size: 1.6rem; }
+  .balloon-float:nth-child(4) { left: 85%; animation-delay: 4s; font-size: 1.4rem; }
+  .balloon-float:nth-child(5) { left: 55%; animation-delay: 6s; font-size: 2.2rem; }
+  .balloon-float:nth-child(6) { left: 30%; animation-delay: 8s; font-size: 1.3rem; }
 
   @keyframes balloon-rise {
     0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.2; }
     80% { opacity: 0.12; }
     100% { transform: translateY(-10vh) rotate(-15deg); opacity: 0; }
-  }
-
-  /* ═══════════════════════════════════════ */
-  /* BAR MITZVAH — purple / gold            */
-  /* ═══════════════════════════════════════ */
-  .bar-section {
-    background:
-      radial-gradient(ellipse 70% 50% at 75% 75%, rgba(201, 168, 76, 0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 20% 30%, rgba(123, 94, 167, 0.12) 0%, transparent 50%),
-      linear-gradient(175deg, #1a0a2e 0%, #1e1040 40%, #251555 100%);
-    color: #f0e6d3;
-  }
-
-  .bar-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-conic-gradient(
-        from 0deg at 50% 50%,
-        transparent 0deg 30deg,
-        rgba(201, 168, 76, 0.015) 30deg 60deg
-      );
-    pointer-events: none;
-  }
-
-  .bar-section .event-title {
-    background: linear-gradient(135deg, #c9a84c 0%, #e8d48b 40%, #c9a84c 80%, #a07830 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 5s ease-in-out infinite;
-  }
-
-  .bar-section .countdown-number {
-    color: #c9a84c;
-    text-shadow: 0 0 30px rgba(201, 168, 76, 0.25), 0 0 60px rgba(123, 94, 167, 0.1);
-  }
-
-  /* Star of David decoration */
-  .star-decoration {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    opacity: 0.04;
-    pointer-events: none;
-  }
-
-  .star-decoration.top-right {
-    top: 5%;
-    right: 5%;
-    animation: float-slow 12s ease-in-out infinite;
-  }
-
-  .star-decoration.bottom-left {
-    bottom: 8%;
-    left: 3%;
-    width: 200px;
-    height: 200px;
-    animation: float-slow 15s ease-in-out infinite reverse;
-  }
-
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(8deg); }
-  }
-
-  .star-decoration svg {
-    width: 100%;
-    height: 100%;
-    fill: #c9a84c;
   }
 
   /* ═══════════════════════════════════════ */
@@ -440,7 +492,6 @@
     text-shadow: 0 0 30px rgba(212, 132, 158, 0.3), 0 0 60px rgba(180, 160, 200, 0.1);
   }
 
-  /* Snowflake decorations */
   .snowflake {
     position: absolute;
     color: rgba(255, 255, 255, 0.12);
@@ -449,69 +500,16 @@
     animation: snow-fall 12s linear infinite;
   }
 
-  .snowflake:nth-child(2) { left: 20%; animation-delay: 2s; font-size: 0.9rem; }
-  .snowflake:nth-child(3) { left: 70%; animation-delay: 4s; font-size: 1.5rem; }
-  .snowflake:nth-child(4) { left: 45%; animation-delay: 7s; font-size: 1rem; }
-  .snowflake:nth-child(5) { left: 90%; animation-delay: 9s; font-size: 0.8rem; }
+  .snowflake:nth-child(3) { left: 20%; animation-delay: 2s; font-size: 0.9rem; }
+  .snowflake:nth-child(4) { left: 70%; animation-delay: 4s; font-size: 1.5rem; }
+  .snowflake:nth-child(5) { left: 45%; animation-delay: 7s; font-size: 1rem; }
+  .snowflake:nth-child(6) { left: 90%; animation-delay: 9s; font-size: 0.8rem; }
 
   @keyframes snow-fall {
     0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.12; }
     90% { opacity: 0.08; }
     100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-  }
-
-  /* ═══════════════════════════════════════ */
-  /* RETIREMENT — warm sunset / golden hour */
-  /* ═══════════════════════════════════════ */
-  .retirement-section {
-    background:
-      radial-gradient(ellipse 80% 50% at 50% 80%, rgba(255, 140, 50, 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(255, 90, 50, 0.08) 0%, transparent 50%),
-      linear-gradient(175deg, #1a1005 0%, #2a1a08 30%, #3d2510 60%, #1a1005 100%);
-    color: #f0e0c8;
-  }
-
-  .retirement-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%),
-      radial-gradient(circle 200px at 80% 30%, rgba(255, 100, 50, 0.04) 0%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .retirement-section .event-title {
-    background: linear-gradient(135deg, #e8a040 0%, #ffcc70 30%, #ff8c40 60%, #e8a040 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 5s ease-in-out infinite;
-  }
-
-  .retirement-section .countdown-number {
-    color: #e8a040;
-    text-shadow: 0 0 30px rgba(232, 160, 64, 0.3), 0 0 60px rgba(255, 140, 50, 0.1);
-  }
-
-  /* Sun decoration */
-  .sun-glow {
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    height: 150px;
-    background: radial-gradient(ellipse at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-    animation: sun-pulse 6s ease-in-out infinite alternate;
-  }
-
-  @keyframes sun-pulse {
-    0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
-    100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
   }
 
   /* ═══════════════════════════════════════ */
@@ -525,60 +523,62 @@
   .event-label {
     font-family: var(--font-body);
     font-weight: 300;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    opacity: 0.6;
+    opacity: 0.5;
     margin-bottom: 0.75rem;
   }
 
   .event-title {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.05;
     margin-bottom: 0.25rem;
     position: relative;
+    text-align: center;
   }
 
   .event-subtitle {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-size: clamp(0.9rem, 2vw, 1.3rem);
     opacity: 0.5;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     font-weight: 400;
+    text-align: center;
   }
 
   .event-date {
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     letter-spacing: 0.1em;
-    opacity: 0.45;
-    margin-bottom: 3rem;
+    opacity: 0.4;
+    margin-bottom: 2.5rem;
   }
 
   /* ─── Countdown grid ─── */
   .countdown {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(0.75rem, 2vw, 2rem);
+    gap: clamp(0.5rem, 1.5vw, 1.5rem);
     width: 100%;
-    max-width: 700px;
+    max-width: 550px;
   }
 
   .countdown-unit {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .countdown-number {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(2.8rem, 8vw, 6rem);
+    font-size: clamp(2.2rem, 5.5vw, 4.5rem);
     line-height: 1;
     position: relative;
     font-variant-numeric: tabular-nums;
@@ -592,7 +592,7 @@
   .countdown-label {
     font-family: var(--font-body);
     font-weight: 300;
-    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+    font-size: clamp(0.55rem, 1.2vw, 0.75rem);
     letter-spacing: 0.25em;
     text-transform: uppercase;
     opacity: 0.4;
@@ -605,11 +605,11 @@
   .countdown-unit:not(:last-child)::after {
     content: ':';
     position: absolute;
-    right: calc(-0.375rem - 1vw);
+    right: calc(-0.25rem - 0.75vw);
     top: 0;
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(1.5rem, 3.5vw, 3rem);
     opacity: 0.15;
     line-height: 1;
   }
@@ -617,14 +617,14 @@
   /* ─── Scroll hint ─── */
   .scroll-hint {
     position: absolute;
-    bottom: 2rem;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    opacity: 0.3;
+    gap: 0.4rem;
+    opacity: 0.25;
     animation: bob 2.5s ease-in-out infinite;
     cursor: pointer;
     background: none;
@@ -634,14 +634,14 @@
   }
 
   .scroll-hint span {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
   }
 
   .scroll-hint svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
@@ -649,7 +649,7 @@
 
   @keyframes bob {
     0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
+    50% { transform: translateX(-50%) translateY(6px); }
   }
 
   /* ─── Particles canvas ─── */
@@ -662,7 +662,7 @@
   /* ─── Entrance animations ─── */
   .fade-up {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(25px);
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -677,355 +677,387 @@
   .delay-3 { transition-delay: 0.4s; }
   .delay-4 { transition-delay: 0.6s; }
 
-  /* ─── Section divider ─── */
-  .section-divider {
-    min-height: 30vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    scroll-snap-align: start;
-    background: linear-gradient(180deg, #080810 0%, #0c0c18 50%, #080810 100%);
+  /* ═══════════════════════════════════════ */
+  /* MOBILE — tab switcher                  */
+  /* ═══════════════════════════════════════ */
+  .mobile-tabs {
+    display: none;
   }
 
-  .divider-content {
-    text-align: center;
-    padding: 2rem;
-  }
+  @media (max-width: 768px) {
+    .app {
+      flex-direction: column;
+    }
 
-  .divider-content h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
-    color: rgba(255, 255, 255, 0.35);
-    letter-spacing: 0.15em;
-  }
+    .panel-divider {
+      display: none;
+    }
 
-  .divider-line {
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    margin: 1rem auto;
-  }
+    .panel {
+      display: none;
+      flex: none;
+      height: calc(100vh - 52px);
+      height: calc(100dvh - 52px);
+    }
 
-  /* ─── Mobile adjustments ─── */
-  @media (max-width: 480px) {
-    .event-section { padding: 1.5rem 1rem; }
-    .countdown { gap: 0.5rem; }
-    .countdown-unit:not(:last-child)::after { display: none; }
-    .airplane-path { display: none; }
-    .nav-dots { right: 0.5rem; gap: 0.5rem; }
-    .nav-dot { width: 8px; height: 8px; }
-    .nav-dot .dot-tooltip { display: none; }
+    .panel.active-panel {
+      display: block;
+    }
+
+    .mobile-tabs {
+      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(8, 8, 16, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mobile-tab {
+      flex: 1;
+      padding: 0.9rem 1rem;
+      text-align: center;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .mobile-tab.active-tab {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .mobile-tab.active-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 1px;
+    }
+
+    .panel-header {
+      display: none;
+    }
+
+    .countdown-unit:not(:last-child)::after {
+      display: none;
+    }
+
+    .airplane-path {
+      display: none;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- Navigation dots -->
-<nav class="nav-dots" id="nav-dots">
-  <div class="nav-dot active" data-target="trip"><span class="dot-tooltip">USA Trip</span></div>
-  <div class="nav-dot" data-target="bar"><span class="dot-tooltip">Bar Mitzvah</span></div>
-  <div class="nav-dot" data-target="retirement"><span class="dot-tooltip">Retirement</span></div>
-  <div class="nav-dot" style="width:16px;height:1px;border-radius:0;background:rgba(255,255,255,0.15);border:none;cursor:default;pointer-events:none" data-target=""></div>
-  <div class="nav-dot" data-target="anniversary"><span class="dot-tooltip">Anniversary</span></div>
-  <div class="nav-dot" data-target="birthday"><span class="dot-tooltip">My Birthday</span></div>
-  <div class="nav-dot" data-target="jonathan"><span class="dot-tooltip">Jonathan</span></div>
-  <div class="nav-dot" data-target="wife"><span class="dot-tooltip">Wife's Birthday</span></div>
-</nav>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- ONE-TIME EVENTS                        -->
-<!-- ═══════════════════════════════════════ -->
-
-<!-- USA FAMILY TRIP -->
-<section class="event-section trip-section" id="trip">
-  <canvas class="particles-canvas" id="trip-particles"></canvas>
-
-  <div class="airplane-path">
-    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-      <path class="dashed-trail" d="M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50"/>
-    </svg>
-    <div class="airplane-icon">&#9992;&#65039;</div>
-  </div>
-
-  <p class="event-label fade-up">One-time event</p>
-  <h1 class="event-title fade-up delay-1">USA Family Trip</h1>
-  <p class="event-subtitle fade-up delay-2">An adventure awaits</p>
-  <p class="event-date fade-up delay-2">July 9, 2026 &middot; 23:00</p>
-
-  <div class="countdown fade-up delay-3" id="trip-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="trip-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="trip-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="trip-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="trip-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('bar').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- BAR MITZVAH -->
-<section class="event-section bar-section" id="bar">
-  <canvas class="particles-canvas" id="bar-particles"></canvas>
-
-  <div class="star-decoration top-right">
-    <svg viewBox="0 0 100 100">
-      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-    </svg>
-  </div>
-  <div class="star-decoration bottom-left">
-    <svg viewBox="0 0 100 100">
-      <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-    </svg>
-  </div>
-
-  <p class="event-label fade-up">One-time event</p>
-  <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
-  <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1.1rem, 2.5vw, 1.5rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
-  <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
-
-  <div class="countdown fade-up delay-3" id="bar-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="bar-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('retirement').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- RETIREMENT -->
-<section class="event-section retirement-section" id="retirement">
-  <canvas class="particles-canvas" id="retirement-particles"></canvas>
-  <div class="sun-glow"></div>
-
-  <p class="event-label fade-up">One-time event</p>
-  <h1 class="event-title fade-up delay-1">Retirement</h1>
-  <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
-  <p class="event-date fade-up delay-2">August 16, 2049</p>
-
-  <div class="countdown fade-up delay-3" id="retirement-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="retirement-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('anniversary').scrollIntoView({behavior:'smooth'})">
-    <span>Recurring events</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
-<!-- DIVIDER                                -->
-<!-- ═══════════════════════════════════════ -->
-<div class="section-divider">
-  <div class="divider-content">
-    <div class="divider-line"></div>
-    <h2>Every Year, Every Time</h2>
-    <div class="divider-line"></div>
-  </div>
+<!-- Mobile tab switcher -->
+<div class="mobile-tabs">
+  <button class="mobile-tab active-tab" data-panel="onetime-panel">Once in a Lifetime</button>
+  <button class="mobile-tab" data-panel="recurring-panel">Every Year</button>
 </div>
 
-<!-- ═══════════════════════════════════════ -->
-<!-- RECURRING EVENTS                       -->
-<!-- ═══════════════════════════════════════ -->
+<div class="app">
 
-<!-- OUR ANNIVERSARY -->
-<section class="event-section anniversary-section" id="anniversary">
-  <canvas class="particles-canvas" id="anniversary-particles"></canvas>
-  <div class="heart-float" style="left: 65%;">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
-  <div class="heart-float">&#10084;</div>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- LEFT PANEL — One-time events           -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="panel active-panel" id="onetime-panel">
+    <div class="panel-header">
+      <span class="panel-header-icon">&#9670;</span>
+      <span class="panel-header-label">Once in a Lifetime</span>
+    </div>
 
-  <p class="event-label fade-up">Every year</p>
-  <h1 class="event-title fade-up delay-1">Our Anniversary</h1>
-  <p class="event-subtitle fade-up delay-2">Celebrating us</p>
-  <p class="event-date fade-up delay-2">July 2, 2026</p>
+    <!-- USA FAMILY TRIP -->
+    <section class="event-section trip-section">
+      <canvas class="particles-canvas" id="trip-particles"></canvas>
+      <div class="airplane-path">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path class="dashed-trail" d="M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50"/>
+        </svg>
+        <div class="airplane-icon">&#9992;&#65039;</div>
+      </div>
 
-  <div class="countdown fade-up delay-3" id="anniversary-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="anniversary-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">USA Family Trip</h1>
+      <p class="event-subtitle fade-up delay-2">An adventure awaits</p>
+      <p class="event-date fade-up delay-2">July 9, 2026 &middot; 23:00</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="trip-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="trip-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="trip-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="trip-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.bar-section').scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </section>
+
+    <!-- BAR MITZVAH -->
+    <section class="event-section bar-section">
+      <canvas class="particles-canvas" id="bar-particles"></canvas>
+      <div class="star-decoration top-right">
+        <svg viewBox="0 0 100 100">
+          <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+        </svg>
+      </div>
+      <div class="star-decoration bottom-left">
+        <svg viewBox="0 0 100 100">
+          <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
+        </svg>
+      </div>
+
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
+      <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1rem, 2vw, 1.3rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
+      <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="bar-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="bar-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="bar-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="bar-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.retirement-section').scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </section>
+
+    <!-- RETIREMENT -->
+    <section class="event-section retirement-section">
+      <canvas class="particles-canvas" id="retirement-particles"></canvas>
+      <div class="sun-glow"></div>
+
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">Retirement</h1>
+      <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
+      <p class="event-date fade-up delay-2">August 16, 2049</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="retirement-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="retirement-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="retirement-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="retirement-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('birthday').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
+  <!-- Divider line between panels -->
+  <div class="panel-divider"></div>
 
-<!-- MY BIRTHDAY -->
-<section class="event-section birthday-section" id="birthday">
-  <canvas class="particles-canvas" id="birthday-particles"></canvas>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- RIGHT PANEL — Recurring events         -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="panel" id="recurring-panel">
+    <div class="panel-header">
+      <span class="panel-header-icon">&#10227;</span>
+      <span class="panel-header-label">Every Year</span>
+    </div>
 
-  <p class="event-label fade-up">Every year</p>
-  <h1 class="event-title fade-up delay-1">My Birthday</h1>
-  <p class="event-subtitle fade-up delay-2">Time to celebrate</p>
-  <p class="event-date fade-up delay-2">August 16, 2026</p>
+    <!-- OUR ANNIVERSARY -->
+    <section class="event-section anniversary-section">
+      <canvas class="particles-canvas" id="anniversary-particles"></canvas>
+      <div class="heart-float" style="left: 65%;">&#10084;</div>
+      <div class="heart-float">&#10084;</div>
+      <div class="heart-float" style="left: 15%;">&#10084;</div>
+      <div class="heart-float" style="left: 80%;">&#10084;</div>
+      <div class="heart-float" style="left: 50%;">&#10084;</div>
+      <div class="heart-float" style="left: 35%;">&#10084;</div>
 
-  <div class="countdown fade-up delay-3" id="birthday-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="birthday-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="birthday-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="birthday-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="birthday-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">Our Anniversary</h1>
+      <p class="event-subtitle fade-up delay-2">Celebrating us</p>
+      <p class="event-date fade-up delay-2">July 2, 2026</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="anniversary-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="anniversary-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="anniversary-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="anniversary-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.birthday-section').scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </section>
+
+    <!-- MY BIRTHDAY -->
+    <section class="event-section birthday-section">
+      <canvas class="particles-canvas" id="birthday-particles"></canvas>
+
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">My Birthday</h1>
+      <p class="event-subtitle fade-up delay-2">Time to celebrate</p>
+      <p class="event-date fade-up delay-2">August 16, 2026</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="birthday-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="birthday-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="birthday-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="birthday-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.jonathan-section').scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </section>
+
+    <!-- JONATHAN'S BIRTHDAY -->
+    <section class="event-section jonathan-section">
+      <canvas class="particles-canvas" id="jonathan-particles"></canvas>
+      <div class="balloon-float" style="left: 70%;">&#127880;</div>
+      <div class="balloon-float">&#127882;</div>
+      <div class="balloon-float" style="left: 10%;">&#127880;</div>
+      <div class="balloon-float" style="left: 85%;">&#127882;</div>
+      <div class="balloon-float" style="left: 55%;">&#127880;</div>
+      <div class="balloon-float" style="left: 30%;">&#127882;</div>
+
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">Jonathan's Birthday</h1>
+      <p class="event-subtitle fade-up delay-2">Happy birthday, champ!</p>
+      <p class="event-date fade-up delay-2">September 9, 2026</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="jonathan-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="jonathan-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="jonathan-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="jonathan-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.wife-section').scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </section>
+
+    <!-- WIFE'S BIRTHDAY -->
+    <section class="event-section wife-section">
+      <canvas class="particles-canvas" id="wife-particles"></canvas>
+      <div class="snowflake" style="left: 40%;">&#10052;</div>
+      <div class="snowflake">&#10052;</div>
+      <div class="snowflake" style="left: 20%;">&#10052;</div>
+      <div class="snowflake" style="left: 70%;">&#10052;</div>
+      <div class="snowflake" style="left: 45%;">&#10052;</div>
+      <div class="snowflake" style="left: 90%;">&#10052;</div>
+
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">Wife's Birthday</h1>
+      <p class="event-subtitle fade-up delay-2">For someone extraordinary</p>
+      <p class="event-date fade-up delay-2">January 19, 2027</p>
+
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="wife-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="wife-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="wife-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="wife-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('jonathan').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- JONATHAN'S BIRTHDAY -->
-<section class="event-section jonathan-section" id="jonathan">
-  <canvas class="particles-canvas" id="jonathan-particles"></canvas>
-  <div class="balloon-float" style="left: 70%;">&#127880;</div>
-  <div class="balloon-float">&#127882;</div>
-  <div class="balloon-float">&#127880;</div>
-  <div class="balloon-float">&#127882;</div>
-  <div class="balloon-float">&#127880;</div>
-
-  <p class="event-label fade-up">Every year</p>
-  <h1 class="event-title fade-up delay-1">Jonathan's Birthday</h1>
-  <p class="event-subtitle fade-up delay-2">Happy birthday, champ!</p>
-  <p class="event-date fade-up delay-2">September 9, 2026</p>
-
-  <div class="countdown fade-up delay-3" id="jonathan-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="jonathan-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="jonathan-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="jonathan-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="jonathan-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('wife').scrollIntoView({behavior:'smooth'})">
-    <span>Next event</span>
-    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</section>
-
-<!-- WIFE'S BIRTHDAY -->
-<section class="event-section wife-section" id="wife">
-  <canvas class="particles-canvas" id="wife-particles"></canvas>
-  <div class="snowflake" style="left: 40%;">&#10052;</div>
-  <div class="snowflake">&#10052;</div>
-  <div class="snowflake">&#10052;</div>
-  <div class="snowflake">&#10052;</div>
-  <div class="snowflake">&#10052;</div>
-
-  <p class="event-label fade-up">Every year</p>
-  <h1 class="event-title fade-up delay-1">Wife's Birthday</h1>
-  <p class="event-subtitle fade-up delay-2">For someone extraordinary</p>
-  <p class="event-date fade-up delay-2">January 19, 2027</p>
-
-  <div class="countdown fade-up delay-3" id="wife-countdown">
-    <div class="countdown-unit">
-      <span class="countdown-number" id="wife-days">--</span>
-      <span class="countdown-label">Days</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="wife-hours">--</span>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="wife-mins">--</span>
-      <span class="countdown-label">Minutes</span>
-    </div>
-    <div class="countdown-unit">
-      <span class="countdown-number" id="wife-secs">--</span>
-      <span class="countdown-label">Seconds</span>
-    </div>
-  </div>
-
-  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('trip').scrollIntoView({behavior:'smooth'})">
-    <svg viewBox="0 0 24 24" style="transform: rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
-    <span>Back to top</span>
-  </button>
-</section>
+</div>
 
 <script>
   // ─── Countdown logic ───
@@ -1096,25 +1128,13 @@
 
   document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
 
-  // ─── Nav dots active state ───
-  const sections = document.querySelectorAll('.event-section');
-  const dots = document.querySelectorAll('.nav-dot');
-
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        dots.forEach(d => d.classList.remove('active'));
-        const dot = document.querySelector(`.nav-dot[data-target="${entry.target.id}"]`);
-        if (dot) dot.classList.add('active');
-      }
-    });
-  }, { threshold: 0.5 });
-
-  sections.forEach(s => sectionObserver.observe(s));
-
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
+  // ─── Mobile tab switching ───
+  document.querySelectorAll('.mobile-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active-tab'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active-panel'));
+      tab.classList.add('active-tab');
+      document.getElementById(tab.dataset.panel).classList.add('active-panel');
     });
   });
 
@@ -1169,13 +1189,13 @@
     draw();
   }
 
-  initParticles('anniversary-particles', 'rgba(232, 93, 117, ALPHA)', 35);
-  initParticles('trip-particles', 'rgba(244, 168, 60, ALPHA)', 40);
-  initParticles('birthday-particles', 'rgba(34, 180, 160, ALPHA)', 35);
-  initParticles('jonathan-particles', 'rgba(60, 130, 246, ALPHA)', 35);
-  initParticles('bar-particles', 'rgba(201, 168, 76, ALPHA)', 35);
-  initParticles('wife-particles', 'rgba(212, 132, 158, ALPHA)', 30);
-  initParticles('retirement-particles', 'rgba(232, 160, 64, ALPHA)', 35);
+  initParticles('trip-particles', 'rgba(244, 168, 60, ALPHA)', 30);
+  initParticles('bar-particles', 'rgba(201, 168, 76, ALPHA)', 30);
+  initParticles('retirement-particles', 'rgba(232, 160, 64, ALPHA)', 30);
+  initParticles('anniversary-particles', 'rgba(232, 93, 117, ALPHA)', 30);
+  initParticles('birthday-particles', 'rgba(34, 180, 160, ALPHA)', 30);
+  initParticles('jonathan-particles', 'rgba(60, 130, 246, ALPHA)', 30);
+  initParticles('wife-particles', 'rgba(212, 132, 158, ALPHA)', 25);
 </script>
 
 </body>
