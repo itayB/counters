@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Countdown to Our Special Moments</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#080810">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;700&family=Noto+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet">
@@ -770,363 +775,170 @@
 </div>
 
 <div class="app">
-
-  <!-- ═══════════════════════════════════════ -->
-  <!-- LEFT PANEL — One-time events           -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="panel active-panel" id="onetime-panel">
     <div class="panel-header">
       <span class="panel-header-icon">&#9670;</span>
       <span class="panel-header-label">Once in a Lifetime</span>
     </div>
-
-    <!-- USA FAMILY TRIP -->
-    <section class="event-section trip-section">
-      <canvas class="particles-canvas" id="trip-particles"></canvas>
-      <div class="airplane-path">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path class="dashed-trail" d="M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50"/>
-        </svg>
-        <div class="airplane-icon">&#9992;&#65039;</div>
-      </div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">USA Family Trip</h1>
-      <p class="event-subtitle fade-up delay-2">An adventure awaits</p>
-      <p class="event-date fade-up delay-2">July 9, 2026 &middot; 23:00</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="trip-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="trip-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="trip-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="trip-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-
-      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.bar-section').scrollIntoView({behavior:'smooth'})">
-        <span>Scroll down</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </section>
-
-    <!-- BAR MITZVAH -->
-    <section class="event-section bar-section">
-      <canvas class="particles-canvas" id="bar-particles"></canvas>
-      <div class="star-decoration top-right">
-        <svg viewBox="0 0 100 100">
-          <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-        </svg>
-      </div>
-      <div class="star-decoration bottom-left">
-        <svg viewBox="0 0 100 100">
-          <polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/>
-        </svg>
-      </div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">Bar Mitzvah</h1>
-      <p class="event-subtitle fade-up delay-2" style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1rem, 2vw, 1.3rem);">&#x05D1;&#x05E8; &#x05DE;&#x05E6;&#x05D5;&#x05D5;&#x05D4;</p>
-      <p class="event-date fade-up delay-2">September 16, 2026 &middot; 08:00</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="bar-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="bar-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="bar-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="bar-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-
-      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.retirement-section').scrollIntoView({behavior:'smooth'})">
-        <span>Scroll down</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </section>
-
-    <!-- RETIREMENT -->
-    <section class="event-section retirement-section">
-      <canvas class="particles-canvas" id="retirement-particles"></canvas>
-      <div class="sun-glow"></div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">Retirement</h1>
-      <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
-      <p class="event-date fade-up delay-2">August 16, 2049</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="retirement-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="retirement-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="retirement-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="retirement-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-    </section>
   </div>
 
-  <!-- Divider line between panels -->
   <div class="panel-divider"></div>
 
-  <!-- ═══════════════════════════════════════ -->
-  <!-- RIGHT PANEL — Recurring events         -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="panel" id="recurring-panel">
     <div class="panel-header">
       <span class="panel-header-icon">&#10227;</span>
       <span class="panel-header-label">Every Year</span>
     </div>
-
-    <!-- OUR ANNIVERSARY -->
-    <section class="event-section anniversary-section">
-      <canvas class="particles-canvas" id="anniversary-particles"></canvas>
-      <div class="heart-float" style="left: 65%;">&#10084;</div>
-      <div class="heart-float">&#10084;</div>
-      <div class="heart-float" style="left: 15%;">&#10084;</div>
-      <div class="heart-float" style="left: 80%;">&#10084;</div>
-      <div class="heart-float" style="left: 50%;">&#10084;</div>
-      <div class="heart-float" style="left: 35%;">&#10084;</div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">Our Anniversary</h1>
-      <p class="event-subtitle fade-up delay-2">Celebrating us</p>
-      <p class="event-date fade-up delay-2">July 2, 2026</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="anniversary-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="anniversary-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="anniversary-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="anniversary-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-
-      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.birthday-section').scrollIntoView({behavior:'smooth'})">
-        <span>Scroll down</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </section>
-
-    <!-- MY BIRTHDAY -->
-    <section class="event-section birthday-section">
-      <canvas class="particles-canvas" id="birthday-particles"></canvas>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">My Birthday</h1>
-      <p class="event-subtitle fade-up delay-2">Time to celebrate</p>
-      <p class="event-date fade-up delay-2">August 16, 2026</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="birthday-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="birthday-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="birthday-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="birthday-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-
-      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.jonathan-section').scrollIntoView({behavior:'smooth'})">
-        <span>Scroll down</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </section>
-
-    <!-- JONATHAN'S BIRTHDAY -->
-    <section class="event-section jonathan-section">
-      <canvas class="particles-canvas" id="jonathan-particles"></canvas>
-      <div class="balloon-float" style="left: 70%;">&#127880;</div>
-      <div class="balloon-float">&#127882;</div>
-      <div class="balloon-float" style="left: 10%;">&#127880;</div>
-      <div class="balloon-float" style="left: 85%;">&#127882;</div>
-      <div class="balloon-float" style="left: 55%;">&#127880;</div>
-      <div class="balloon-float" style="left: 30%;">&#127882;</div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">Jonathan's Birthday</h1>
-      <p class="event-subtitle fade-up delay-2">Happy birthday, champ!</p>
-      <p class="event-date fade-up delay-2">September 9, 2026</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="jonathan-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="jonathan-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="jonathan-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="jonathan-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-
-      <button class="scroll-hint fade-up delay-4" onclick="this.closest('.panel').querySelector('.wife-section').scrollIntoView({behavior:'smooth'})">
-        <span>Scroll down</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-    </section>
-
-    <!-- WIFE'S BIRTHDAY -->
-    <section class="event-section wife-section">
-      <canvas class="particles-canvas" id="wife-particles"></canvas>
-      <div class="snowflake" style="left: 40%;">&#10052;</div>
-      <div class="snowflake">&#10052;</div>
-      <div class="snowflake" style="left: 20%;">&#10052;</div>
-      <div class="snowflake" style="left: 70%;">&#10052;</div>
-      <div class="snowflake" style="left: 45%;">&#10052;</div>
-      <div class="snowflake" style="left: 90%;">&#10052;</div>
-
-      <p class="event-label fade-up">Counting down to</p>
-      <h1 class="event-title fade-up delay-1">Wife's Birthday</h1>
-      <p class="event-subtitle fade-up delay-2">For someone extraordinary</p>
-      <p class="event-date fade-up delay-2">January 19, 2027</p>
-
-      <div class="countdown fade-up delay-3">
-        <div class="countdown-unit">
-          <span class="countdown-number" id="wife-days">--</span>
-          <span class="countdown-label">Days</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="wife-hours">--</span>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="wife-mins">--</span>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <div class="countdown-unit">
-          <span class="countdown-number" id="wife-secs">--</span>
-          <span class="countdown-label">Seconds</span>
-        </div>
-      </div>
-    </section>
   </div>
-
 </div>
 
+<script src="events.js"></script>
 <script>
-  // ─── Countdown logic ───
-  const events = [
-    { target: new Date('2026-07-02T00:00:00'), prefix: 'anniversary' },
-    { target: new Date('2026-07-09T23:00:00'), prefix: 'trip' },
-    { target: new Date('2026-08-16T00:00:00'), prefix: 'birthday' },
-    { target: new Date('2026-09-09T00:00:00'), prefix: 'jonathan' },
-    { target: new Date('2026-09-16T08:00:00'), prefix: 'bar' },
-    { target: new Date('2027-01-19T00:00:00'), prefix: 'wife' },
-    { target: new Date('2049-08-16T00:00:00'), prefix: 'retirement' },
-  ].map(ev => ({
-    target: ev.target,
-    els: {
-      days: document.getElementById(ev.prefix + '-days'),
-      hours: document.getElementById(ev.prefix + '-hours'),
-      mins: document.getElementById(ev.prefix + '-mins'),
-      secs: document.getElementById(ev.prefix + '-secs'),
-    }
-  }));
+  // ─── Decoration generators ───
+  const decorations = {
+    airplane: () => `
+      <div class="airplane-path">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path class="dashed-trail" d="M0,80 C200,20 400,120 600,40 C800,-30 1000,90 1200,50"/>
+        </svg>
+        <div class="airplane-icon">&#9992;&#65039;</div>
+      </div>`,
+    stars: () => `
+      <div class="star-decoration top-right">
+        <svg viewBox="0 0 100 100"><polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/></svg>
+      </div>
+      <div class="star-decoration bottom-left">
+        <svg viewBox="0 0 100 100"><polygon points="50,5 61,37 95,37 67,58 78,90 50,70 22,90 33,58 5,37 39,37"/></svg>
+      </div>`,
+    sun: () => `<div class="sun-glow"></div>`,
+    hearts: () => [65, 15, 80, 50, 35].map(l =>
+      `<div class="heart-float" style="left:${l}%">&#10084;</div>`).join(''),
+    balloons: () => [70, 10, 85, 55, 30].map((l, i) =>
+      `<div class="balloon-float" style="left:${l}%">${i % 2 === 0 ? '&#127880;' : '&#127882;'}</div>`).join(''),
+    snowflakes: () => [40, 20, 70, 45, 90].map(l =>
+      `<div class="snowflake" style="left:${l}%">&#10052;</div>`).join(''),
+  };
 
-  function pad(n) {
-    return String(n).padStart(2, '0');
+  function buildSection(ev, isLast) {
+    const subtitleStyle = ev.subtitleStyle === 'hebrew'
+      ? ' style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1rem, 2vw, 1.3rem);"'
+      : '';
+    const deco = ev.decoration && decorations[ev.decoration] ? decorations[ev.decoration]() : '';
+    const scrollBtn = isLast ? '' : `
+      <button class="scroll-hint fade-up delay-4" onclick="this.closest('section').nextElementSibling.scrollIntoView({behavior:'smooth'})">
+        <span>Scroll down</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>`;
+
+    return `
+    <section class="event-section ${ev.theme}-section">
+      <canvas class="particles-canvas" id="${ev.id}-particles"></canvas>
+      ${deco}
+      <p class="event-label fade-up">Counting down to</p>
+      <h1 class="event-title fade-up delay-1">${ev.title}</h1>
+      <p class="event-subtitle fade-up delay-2"${subtitleStyle}>${ev.subtitle}</p>
+      <p class="event-date fade-up delay-2">${ev.dateDisplay}</p>
+      <div class="countdown fade-up delay-3">
+        <div class="countdown-unit">
+          <span class="countdown-number" id="${ev.id}-days">--</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="${ev.id}-hours">--</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="${ev.id}-mins">--</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-number" id="${ev.id}-secs">--</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+      ${scrollBtn}
+    </section>`;
   }
 
-  function updateCountdowns() {
+  function getNextOccurrence(month, day) {
     const now = new Date();
-    events.forEach(ev => {
-      const diff = ev.target - now;
-      if (diff <= 0) {
-        ev.els.days.textContent = '00';
-        ev.els.hours.textContent = '00';
-        ev.els.mins.textContent = '00';
-        ev.els.secs.textContent = '00';
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-
-      const values = { days, hours: pad(hours), mins: pad(mins), secs: pad(secs) };
-
-      Object.keys(values).forEach(key => {
-        const el = ev.els[key];
-        const newVal = String(values[key]);
-        if (el.textContent !== newVal) {
-          el.classList.add('flip');
-          setTimeout(() => {
-            el.textContent = newVal;
-            el.classList.remove('flip');
-          }, 150);
-        }
-      });
-    });
+    let target = new Date(now.getFullYear(), month - 1, day);
+    if (target <= now) target = new Date(now.getFullYear() + 1, month - 1, day);
+    return target;
   }
 
-  updateCountdowns();
-  setInterval(updateCountdowns, 1000);
+  // ─── Render events from EVENTS global ───
+  (function() {
+    const onetimePanel = document.getElementById('onetime-panel');
+    const recurringPanel = document.getElementById('recurring-panel');
+    const countdownTargets = [];
 
-  // ─── Intersection Observer for fade-in ───
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+    // One-time events
+    EVENTS.onetime.forEach((ev, i) => {
+      onetimePanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.onetime.length - 1));
+      countdownTargets.push({ target: new Date(ev.date), prefix: ev.id, particleColor: ev.particleColor });
     });
-  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+    // Recurring events
+    EVENTS.recurring.forEach((ev, i) => {
+      recurringPanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.recurring.length - 1));
+      const target = getNextOccurrence(ev.month, ev.day);
+      countdownTargets.push({ target, prefix: ev.id, particleColor: ev.particleColor });
+    });
+
+    // ─── Initialize countdowns ───
+    const events = countdownTargets.map(ev => ({
+      target: ev.target,
+      els: {
+        days: document.getElementById(ev.prefix + '-days'),
+        hours: document.getElementById(ev.prefix + '-hours'),
+        mins: document.getElementById(ev.prefix + '-mins'),
+        secs: document.getElementById(ev.prefix + '-secs'),
+      }
+    }));
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateCountdowns() {
+      const now = new Date();
+      events.forEach(ev => {
+        const diff = ev.target - now;
+        if (diff <= 0) {
+          ev.els.days.textContent = '00';
+          ev.els.hours.textContent = '00';
+          ev.els.mins.textContent = '00';
+          ev.els.secs.textContent = '00';
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+        const values = { days, hours: pad(hours), mins: pad(mins), secs: pad(secs) };
+
+        Object.keys(values).forEach(key => {
+          const el = ev.els[key];
+          const newVal = String(values[key]);
+          if (el.textContent !== newVal) {
+            el.classList.add('flip');
+            setTimeout(() => { el.textContent = newVal; el.classList.remove('flip'); }, 150);
+          }
+        });
+      });
+    }
+
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
+
+    // ─── Fade-in observer ───
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+    // ─── Particles ───
+    countdownTargets.forEach(ev => initParticles(ev.prefix + '-particles', ev.particleColor, 30));
+  })();
 
   // ─── Mobile tab switching ───
   document.querySelectorAll('.mobile-tab').forEach(tab => {
@@ -1188,14 +1000,6 @@
     init();
     draw();
   }
-
-  initParticles('trip-particles', 'rgba(244, 168, 60, ALPHA)', 30);
-  initParticles('bar-particles', 'rgba(201, 168, 76, ALPHA)', 30);
-  initParticles('retirement-particles', 'rgba(232, 160, 64, ALPHA)', 30);
-  initParticles('anniversary-particles', 'rgba(232, 93, 117, ALPHA)', 30);
-  initParticles('birthday-particles', 'rgba(34, 180, 160, ALPHA)', 30);
-  initParticles('jonathan-particles', 'rgba(60, 130, 246, ALPHA)', 30);
-  initParticles('wife-particles', 'rgba(212, 132, 158, ALPHA)', 25);
 </script>
 
 </body>

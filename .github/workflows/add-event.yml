@@ -1,0 +1,150 @@
+name: Add Event
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Event title (e.g. "My Wedding")'
+        required: true
+        type: string
+      subtitle:
+        description: 'Tagline (e.g. "The big day")'
+        required: true
+        type: string
+      type:
+        description: 'Event type'
+        required: true
+        type: choice
+        options:
+          - onetime
+          - recurring
+      date:
+        description: 'Date — YYYY-MM-DD for one-time, or MM-DD for recurring'
+        required: true
+        type: string
+      time:
+        description: 'Time (HH:MM, 24h) — optional, defaults to 00:00'
+        required: false
+        type: string
+        default: '00:00'
+      theme:
+        description: 'Color theme'
+        required: true
+        type: choice
+        options:
+          - trip
+          - bar
+          - retirement
+          - anniversary
+          - birthday
+          - jonathan
+          - wife
+      decoration:
+        description: 'Decoration style'
+        required: true
+        type: choice
+        options:
+          - none
+          - airplane
+          - stars
+          - sun
+          - hearts
+          - balloons
+          - snowflakes
+
+jobs:
+  add-event:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate event ID
+        id: gen
+        env:
+          EVENT_NAME: ${{ inputs.name }}
+        run: |
+          ID=$(echo "$EVENT_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//')
+          echo "id=$ID" >> "$GITHUB_OUTPUT"
+
+      - name: Add event to events.js
+        env:
+          EVENT_ID: ${{ steps.gen.outputs.id }}
+          EVENT_NAME: ${{ inputs.name }}
+          EVENT_SUBTITLE: ${{ inputs.subtitle }}
+          EVENT_TYPE: ${{ inputs.type }}
+          EVENT_DATE: ${{ inputs.date }}
+          EVENT_TIME: ${{ inputs.time }}
+          EVENT_THEME: ${{ inputs.theme }}
+          EVENT_DECORATION: ${{ inputs.decoration }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const content = fs.readFileSync('events.js', 'utf8');
+
+            const eventsMatch = content.match(/const EVENTS = (\{[\s\S]*\});/);
+            if (!eventsMatch) throw new Error('Could not parse events.js');
+            const events = eval('(' + eventsMatch[1] + ')');
+
+            const id = process.env.EVENT_ID;
+            const name = process.env.EVENT_NAME;
+            const subtitle = process.env.EVENT_SUBTITLE;
+            const type = process.env.EVENT_TYPE;
+            const date = process.env.EVENT_DATE;
+            const time = process.env.EVENT_TIME || '00:00';
+            const theme = process.env.EVENT_THEME;
+            const decoration = process.env.EVENT_DECORATION === 'none' ? null : process.env.EVENT_DECORATION;
+
+            // Find particle color from an existing event with the same theme
+            const allEvents = [...events.onetime, ...events.recurring];
+            const match = allEvents.find(e => e.theme === theme);
+            const particleColor = match ? match.particleColor : 'rgba(200, 200, 200, ALPHA)';
+
+            if (type === 'onetime') {
+              const dateObj = new Date(`${date}T${time}:00`);
+              const display = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+              const dateDisplay = time !== '00:00' ? `${display} \u00b7 ${time}` : display;
+              events.onetime.push({
+                id, title: name, subtitle,
+                date: `${date}T${time}:00`,
+                dateDisplay, theme, particleColor, decoration
+              });
+            } else {
+              const [mm, dd] = date.split('-').map(Number);
+              const monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+              events.recurring.push({
+                id, title: name, subtitle,
+                month: mm, day: dd,
+                dateDisplay: `${monthNames[mm]} ${dd}`,
+                theme, particleColor, decoration
+              });
+            }
+
+            const output = 'const EVENTS = ' + JSON.stringify(events, null, 2) + ';\n';
+            fs.writeFileSync('events.js', output);
+
+      - name: Create Pull Request
+        env:
+          EVENT_NAME: ${{ inputs.name }}
+          EVENT_ID: ${{ steps.gen.outputs.id }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Add event: ${{ inputs.name }}"
+          branch: add-event/${{ steps.gen.outputs.id }}
+          title: "Add event: ${{ inputs.name }}"
+          body: |
+            ## New Event
+            - **Name:** ${{ inputs.name }}
+            - **Subtitle:** ${{ inputs.subtitle }}
+            - **Type:** ${{ inputs.type }}
+            - **Date:** ${{ inputs.date }}
+            - **Time:** ${{ inputs.time }}
+            - **Theme:** ${{ inputs.theme }}
+            - **Decoration:** ${{ inputs.decoration }}
+
+            Auto-generated by the Add Event workflow.
