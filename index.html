@@ -462,6 +462,59 @@
   }
 
   /* ═══════════════════════════════════════ */
+  /* RETIREMENT — warm sunset / golden hour */
+  /* ═══════════════════════════════════════ */
+  .retirement-section {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 80%, rgba(255, 140, 50, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(255, 90, 50, 0.08) 0%, transparent 50%),
+      linear-gradient(175deg, #1a1005 0%, #2a1a08 30%, #3d2510 60%, #1a1005 100%);
+    color: #f0e0c8;
+  }
+
+  .retirement-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 100% 40% at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%),
+      radial-gradient(circle 200px at 80% 30%, rgba(255, 100, 50, 0.04) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .retirement-section .event-title {
+    background: linear-gradient(135deg, #e8a040 0%, #ffcc70 30%, #ff8c40 60%, #e8a040 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 5s ease-in-out infinite;
+  }
+
+  .retirement-section .countdown-number {
+    color: #e8a040;
+    text-shadow: 0 0 30px rgba(232, 160, 64, 0.3), 0 0 60px rgba(255, 140, 50, 0.1);
+  }
+
+  /* Sun decoration */
+  .sun-glow {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 150px;
+    background: radial-gradient(ellipse at 50% 100%, rgba(255, 160, 60, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    animation: sun-pulse 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes sun-pulse {
+    0% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  }
+
+  /* ═══════════════════════════════════════ */
   /* SHARED STYLES                          */
   /* ═══════════════════════════════════════ */
   @keyframes shimmer {
@@ -646,6 +699,7 @@
   <div class="nav-dot" data-target="jonathan"><span class="dot-tooltip">Jonathan</span></div>
   <div class="nav-dot" data-target="bar"><span class="dot-tooltip">Bar Mitzvah</span></div>
   <div class="nav-dot" data-target="wife"><span class="dot-tooltip">Wife's Birthday</span></div>
+  <div class="nav-dot" data-target="retirement"><span class="dot-tooltip">Retirement</span></div>
 </nav>
 
 <!-- ═══════════════════════════════════════ -->
@@ -891,6 +945,43 @@
     </div>
   </div>
 
+  <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('retirement').scrollIntoView({behavior:'smooth'})">
+    <span>Next event</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- RETIREMENT                             -->
+<!-- ═══════════════════════════════════════ -->
+<section class="event-section retirement-section" id="retirement">
+  <canvas class="particles-canvas" id="retirement-particles"></canvas>
+  <div class="sun-glow"></div>
+
+  <p class="event-label fade-up">Counting down to</p>
+  <h1 class="event-title fade-up delay-1">Retirement</h1>
+  <p class="event-subtitle fade-up delay-2">Freedom awaits at the horizon</p>
+  <p class="event-date fade-up delay-2">August 16, 2049</p>
+
+  <div class="countdown fade-up delay-3" id="retirement-countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-days">--</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-hours">--</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-mins">--</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="retirement-secs">--</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
   <button class="scroll-hint fade-up delay-4" onclick="document.getElementById('anniversary').scrollIntoView({behavior:'smooth'})">
     <svg viewBox="0 0 24 24" style="transform: rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
     <span>Back to top</span>
@@ -906,6 +997,7 @@
     { target: new Date('2026-09-09T00:00:00'), prefix: 'jonathan' },
     { target: new Date('2026-09-16T08:00:00'), prefix: 'bar' },
     { target: new Date('2027-01-19T00:00:00'), prefix: 'wife' },
+    { target: new Date('2049-08-16T00:00:00'), prefix: 'retirement' },
   ].map(ev => ({
     target: ev.target,
     els: {
@@ -1044,6 +1136,7 @@
   initParticles('jonathan-particles', 'rgba(60, 130, 246, ALPHA)', 35);
   initParticles('bar-particles', 'rgba(201, 168, 76, ALPHA)', 35);
   initParticles('wife-particles', 'rgba(212, 132, 158, ALPHA)', 30);
+  initParticles('retirement-particles', 'rgba(232, 160, 64, ALPHA)', 35);
 </script>
 
 </body>
