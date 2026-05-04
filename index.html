@@ -832,11 +832,13 @@
       `<div class="snowflake" style="left:${l}%">&#10052;</div>`).join(''),
   };
 
-  function buildSection(ev, isLast) {
+  function buildSection(ev, isLast, target) {
     const subtitleStyle = ev.subtitleStyle === 'hebrew'
       ? ' style="font-family: var(--font-hebrew); font-style: normal; font-size: clamp(1rem, 2vw, 1.3rem);"'
       : '';
     const deco = ev.decoration && decorations[ev.decoration] ? decorations[ev.decoration]() : '';
+    const weekday = target.toLocaleDateString('en-US', { weekday: 'short' });
+    const dateLine = `${ev.dateDisplay} · ${weekday}`;
     const scrollBtn = isLast ? '' : `
       <button class="scroll-hint fade-up delay-4" onclick="this.closest('section').nextElementSibling.scrollIntoView({behavior:'smooth'})">
         <span>Scroll down</span>
@@ -850,7 +852,7 @@
       <p class="event-label fade-up">Counting down to</p>
       <h1 class="event-title fade-up delay-1">${ev.title}</h1>
       <p class="event-subtitle fade-up delay-2"${subtitleStyle}>${ev.subtitle}</p>
-      <p class="event-date fade-up delay-2">${ev.dateDisplay}</p>
+      <p class="event-date fade-up delay-2">${dateLine}</p>
       <div class="countdown fade-up delay-3">
         <div class="countdown-unit">
           <span class="countdown-number" id="${ev.id}-days">--</span>
@@ -911,14 +913,15 @@
 
     // One-time events
     EVENTS.onetime.forEach((ev, i) => {
-      onetimePanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.onetime.length - 1));
-      countdownTargets.push({ target: new Date(ev.date), prefix: ev.id, particleColor: ev.particleColor });
+      const target = new Date(ev.date);
+      onetimePanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.onetime.length - 1, target));
+      countdownTargets.push({ target, prefix: ev.id, particleColor: ev.particleColor });
     });
 
     // Recurring events
     EVENTS.recurring.forEach((ev, i) => {
-      recurringPanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.recurring.length - 1));
       const target = getNextOccurrence(ev.month, ev.day);
+      recurringPanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.recurring.length - 1, target));
       countdownTargets.push({ target, prefix: ev.id, particleColor: ev.particleColor });
     });
 
