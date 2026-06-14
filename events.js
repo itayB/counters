@@ -22,8 +22,18 @@ const EVENTS = {
       decoration: "stars"
     },
     {
-      id: "retention-2",
+      id: "retention-2-pay",
       title: "Retention #2",
+      subtitle: "Payday",
+      date: "2027-03-10T00:00:00",
+      dateDisplay: "March 10, 2027",
+      theme: "retirement",
+      particleColor: "rgba(232, 160, 64, ALPHA)",
+      decoration: "sun"
+    },
+    {
+      id: "retention-2-free",
+      title: "Retention #2 · Free",
       subtitle: "No strings attached",
       date: "2027-09-10T00:00:00",
       dateDisplay: "September 10, 2027",
