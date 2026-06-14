@@ -22,6 +22,16 @@ const EVENTS = {
       decoration: "stars"
     },
     {
+      id: "clear-horizon",
+      title: "Clear Horizon",
+      subtitle: "A clean slate ahead",
+      date: "2027-09-10T00:00:00",
+      dateDisplay: "September 10, 2027",
+      theme: "retirement",
+      particleColor: "rgba(232, 160, 64, ALPHA)",
+      decoration: "sun"
+    },
+    {
       id: "high-school",
       title: "Jonathan's High School",
       subtitle: "A new chapter begins",
