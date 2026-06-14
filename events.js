@@ -22,16 +22,6 @@ const EVENTS = {
       decoration: "stars"
     },
     {
-      id: "retention-1",
-      title: "Retention #1",
-      subtitle: "No strings attached",
-      date: "2026-09-10T00:00:00",
-      dateDisplay: "September 10, 2026",
-      theme: "retirement",
-      particleColor: "rgba(232, 160, 64, ALPHA)",
-      decoration: "sun"
-    },
-    {
       id: "retention-2",
       title: "Retention #2",
       subtitle: "No strings attached",
