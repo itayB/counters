@@ -1,16 +1,6 @@
 const EVENTS = {
   onetime: [
     {
-      id: "trip",
-      title: "USA Family Trip",
-      subtitle: "An adventure awaits",
-      date: "2026-07-09T23:00:00",
-      dateDisplay: "July 9, 2026 \u00b7 23:00",
-      theme: "trip",
-      particleColor: "rgba(244, 168, 60, ALPHA)",
-      decoration: "airplane"
-    },
-    {
       id: "bar",
       title: "Bar Mitzvah",
       subtitle: "\u05D1\u05E8 \u05DE\u05E6\u05D5\u05D5\u05D4",
