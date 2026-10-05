@@ -911,17 +911,23 @@
     const recurringPanel = document.getElementById('recurring-panel');
     const countdownTargets = [];
 
-    // One-time events
-    EVENTS.onetime.forEach((ev, i) => {
-      const target = new Date(ev.date);
-      onetimePanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.onetime.length - 1, target));
+    const now = new Date();
+
+    // One-time events — skip finished ones
+    const upcomingOnetime = EVENTS.onetime
+      .map(ev => ({ ev, target: new Date(ev.date) }))
+      .filter(({ target }) => target > now);
+    upcomingOnetime.forEach(({ ev, target }, i) => {
+      onetimePanel.insertAdjacentHTML('beforeend', buildSection(ev, i === upcomingOnetime.length - 1, target));
       countdownTargets.push({ target, prefix: ev.id, particleColor: ev.particleColor });
     });
 
-    // Recurring events
-    EVENTS.recurring.forEach((ev, i) => {
-      const target = getNextOccurrence(ev.month, ev.day);
-      recurringPanel.insertAdjacentHTML('beforeend', buildSection(ev, i === EVENTS.recurring.length - 1, target));
+    // Recurring events — closest next occurrence first
+    const sortedRecurring = EVENTS.recurring
+      .map(ev => ({ ev, target: getNextOccurrence(ev.month, ev.day) }))
+      .sort((a, b) => a.target - b.target);
+    sortedRecurring.forEach(({ ev, target }, i) => {
+      recurringPanel.insertAdjacentHTML('beforeend', buildSection(ev, i === sortedRecurring.length - 1, target));
       countdownTargets.push({ target, prefix: ev.id, particleColor: ev.particleColor });
     });
 

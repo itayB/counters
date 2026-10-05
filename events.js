@@ -1,17 +1,6 @@
 const EVENTS = {
   onetime: [
     {
-      id: "bar",
-      title: "Bar Mitzvah",
-      subtitle: "\u05D1\u05E8 \u05DE\u05E6\u05D5\u05D5\u05D4",
-      subtitleStyle: "hebrew",
-      date: "2026-09-16T08:00:00",
-      dateDisplay: "September 16, 2026 \u00b7 08:00",
-      theme: "bar",
-      particleColor: "rgba(201, 168, 76, ALPHA)",
-      decoration: "stars"
-    },
-    {
       id: "retention-2-pay",
       title: "Retention #2",
       subtitle: "Payday",
